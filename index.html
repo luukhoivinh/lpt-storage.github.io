@@ -3,175 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm Nhà Thấy Địa Chỉ & Giá (Mô phỏng)</title>
+    <title>Trang Chủ Dự Án</title>
     <style>
         /* CSS CƠ BẢN */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
+            background-color: #f4f4f4;
         }
 
-        /* HEADER VÀ NAVIGATION */
+        /* HEADER */
         .header {
+            background-color: #333;
+            color: white;
+            padding: 15px 50px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
-            padding: 15px 10%;
-            background-color: white;
-            border-bottom: 1px solid #eee;
         }
 
-        .nav a {
-            margin-right: 20px;
+        .header a {
+            color: white;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .logo {
-            font-weight: bold;
-            font-size: 24px;
-            color: #000;
+            margin-right: 30px;
+            font-size: 1.1em;
+            transition: color 0.3s;
         }
 
-        .login-switch {
-            display: flex;
-            align-items: center;
+        .header a:hover {
+            color: #ffcc00; /* Màu vàng khi hover */
         }
 
-        /* HERO SECTION (BANNER) */
-        .hero-section {
-            position: relative;
-            height: 500px; /* Chiều cao cố định của banner */
-            background-image: url('placeholder_banner_nha_dep.jpg'); /* THAY THẾ bằng link ảnh thật */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .hero-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* Lớp phủ đen mờ */
-            z-index: 2;
-        }
-
-        .hero-content {
-            z-index: 3;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5em;
-            margin-bottom: 10px;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-        
-        .hero-content h1:first-child {
-            font-size: 2em;
-            font-weight: 500;
-        }
-
-        /* THANH TÌM KIẾM */
-        .search-bar {
-            margin-top: 30px;
-            display: flex;
-            width: 80%;
-            max-width: 600px;
-            background-color: white;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .search-bar input {
-            flex-grow: 1;
-            padding: 15px;
-            border: none;
-            font-size: 1em;
-            outline: none;
-        }
-
-        .search-bar button {
-            background-color: #ff9900; /* Màu cam */
-            color: white;
-            border: none;
-            padding: 0 20px;
-            cursor: pointer;
-            font-size: 1.2em;
-        }
-
-        /* NỘI DUNG CHÍNH (SẢN PHẨM) */
-        .main-content {
-            padding: 50px 10%;
-        }
-
-        .highlight-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .highlight-title h2 {
-            font-size: 1.8em;
-            font-weight: 800;
-        }
-
-        .arrow-nav button {
-            background: white;
-            border: 1px solid #ccc;
-            padding: 10px 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        
-        .property-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .property-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .property-card img {
+        /* SLIDE SHOW CONTAINER */
+        .slider-container {
             width: 100%;
-            height: 180px;
+            height: 400px; /* Điều chỉnh chiều cao slide */
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-track {
+            display: flex;
+            width: calc(100% * 5); /* 5 ảnh, mỗi ảnh chiếm 100% chiều rộng container */
+            height: 100%;
+            /* Tên animation, thời gian, lặp lại vô tận */
+            animation: slide-scroll 25s infinite; 
+        }
+
+        .slide {
+            width: calc(100% / 5); /* Mỗi slide chiếm 1/5 tổng chiều rộng track */
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
-        .card-info {
-            padding: 15px;
-            font-size: 0.9em;
+        /* KEYFRAMES CHO TỰ ĐỘNG CUỘN */
+        @keyframes slide-scroll {
+            /* Giả sử 5 ảnh, mỗi ảnh hiện 4s + 1s chuyển động = 5s/ảnh. Tổng 25s */
+            0% { transform: translateX(0%); } /* Ảnh 1 */
+            19% { transform: translateX(0%); }
+            20% { transform: translateX(-20%); } /* Chuyển sang Ảnh 2 */
+            39% { transform: translateX(-20%); }
+            40% { transform: translateX(-40%); } /* Chuyển sang Ảnh 3 */
+            59% { transform: translateX(-40%); }
+            60% { transform: translateX(-60%); } /* Chuyển sang Ảnh 4 */
+            79% { transform: translateX(-60%); }
+            80% { transform: translateX(-80%); } /* Chuyển sang Ảnh 5 */
+            99% { transform: translateX(-80%); }
+            100% { transform: translateX(0%); } /* Quay lại Ảnh 1 */
+        }
+
+        /* NỘI DUNG DỰ ÁN */
+        .projects-section {
+            padding: 40px 50px;
+            text-align: center;
+        }
+
+        .projects-section h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .project-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .project-card {
+            width: 30%;
+            min-width: 250px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card h3 {
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .project-card a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .project-card a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <div class="nav">
-            <a href="#">Mua</a>
-            <a href="#">Bán</a>
-            <a href="#">Thuê</a>
-            <a href="#">Cộng đồng môi giới</a>
+        <a href="index.html">Trang chủ</a>
+        <a href="#projects">Dự án</a>
+        <a href="#">Liên hệ ngay</a>
+    </header>
+
+    <section class="slider-container">
+        <div class="slide-track">
+            <div class="slide"><img src="https://via.placeholder.com/1920x400/FF5733/FFFFFF?text=Slide+1" alt="Slide 1"></div>
+            <div class="slide"><img src="https://via.placeholder.com/1920x400/33FF57/FFFFFF?text=Slide+2" alt="Slide 2"></div>
+            <div class="slide"><img src="https://via.placeholder.com/1920x400/3357FF/FFFFFF?text=Slide+3" alt="Slide 3"></div>
+            <div class="slide"><img src="https://via.placeholder.com/1920x400/FF33A1/FFFFFF?text=Slide+4" alt="Slide 4"></div>
+            <div class="slide"><img src="https://via.placeholder.com/1920x400/33FFF6/FFFFFF?text=Slide+5" alt="Slide 5"></div>
         </div>
-        <div class="logo">Mosa <span style="font-size:0.5em; vertical-align:top; color:#ff9900;">By Land Broker</span></div>
-        <div class="login-switch">
-            <label
+    </section>
+
+    <section id="projects" class="projects-section">
+        <h2>Tổng quan</h2>
+        
+        <div class="project-list">
+            
+            <div class="project-card">
+                <h3>Dự án A</h3>
+                <p>Địa điểm: Quận 1, TP. HCM</p>
+                <p>Trạng thái: Đang triển khai</p>
+                <a href="duan_a_details.html">Xem chi tiết &gt;</a> 
+            </div>
+
+            <div class="project-card">
+                <h3>Dự án B</h3>
+                <p>Địa điểm: Hà Nội</p>
+                <p>Trạng thái: Đã hoàn thành</p>
+                <a href="duan_b_details.html">Xem chi tiết &gt;</a> 
+            </div>
+
+            <div class="project-card">
+                <h3>Dự án C</h3>
+                <p>Địa điểm: Đà Nẵng</p>
+                <p>Trạng thái: Sắp mở bán</p>
+                <a href="duan_c_details.html">Xem chi tiết &gt;</a> 
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>
